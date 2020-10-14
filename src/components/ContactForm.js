@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import contactActions from '../redux/contacts/contactActions';
 
 import styles from './Contacts.module.css';
 
@@ -16,12 +18,8 @@ class ContactForm extends Component {
   submitHandler = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    const contact = {
-      id: uuidv4(),
-      name: name,
-      number: number,
-    };
-    this.props.onAddContact(contact);
+
+    this.props.onAddContact(name, number);
     this.reset();
   };
 
@@ -68,7 +66,9 @@ class ContactForm extends Component {
 ContactForm.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
-  onAddContact: PropTypes.func.isRequired,
+  onAddContact: PropTypes.func,
 };
 
-export default ContactForm;
+const mapDispatchToProps = { onAddContact: contactActions.addContact };
+
+export default connect(null, mapDispatchToProps)(ContactForm);

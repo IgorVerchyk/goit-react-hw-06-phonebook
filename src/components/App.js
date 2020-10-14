@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import ContactsMain from './ContactsMain';
+import Layout from './Layout';
+import ContactList from './ContactsList';
+import ContactForm from './ContactForm';
+import Filter from './ContactFilter';
 
-import ContactCntx from '../contexts/contacts';
-
-export default class App extends Component {
-  render() {
-    return (
-      //using context in this homework only for get some practice
-      <ContactCntx>
-        <ContactsMain />
-      </ContactCntx>
-    );
-  }
+export default function App() {
+  return (
+    <>
+      <Layout title={'Phonebook'}>
+        <ContactForm />
+      </Layout>
+      <Layout title={'Contacts'}>
+        <Filter />
+        <ContactList />
+      </Layout>
+    </>
+  );
 }
